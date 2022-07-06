@@ -38,7 +38,7 @@ public class AddressBook {
 		case 2:
 			System.out.println("Enter Last Name");
 			String LastName = scanner.next();
-			person.setLastName(LastName);
+			person.setFirstName(LastName);
 			break;
 		case 3:
 			System.out.println("Enter Address");
@@ -70,6 +70,16 @@ public class AddressBook {
 			break;
 		}
 	}
+	private void deletePerson() {
+		System.out.println("Enter EmailId to delete");
+		String EmailId = scanner.next();
+		if (!list.containsKey(EmailId)) {
+			System.out.println("Provided email Id is not found");
+			deletePerson();
+		}
+		list.remove(EmailId);
+		System.out.println("Deleted Successesfully.");
+	}
 	private ContactPerson getUserInput() {
 		System.out.print("Enter FirstName:");
 		String FirstName = scanner.next();
@@ -97,7 +107,7 @@ public class AddressBook {
 
 		ContactPerson person = new ContactPerson();
 		person.setFirstName(FirstName);
-		person.setLastName(LastName);
+		person.setFirstName(LastName);
 		person.setAddress(Address);
 		person.setCity(City);
 		person.setZIPCode(ZIPCode);
@@ -111,7 +121,8 @@ public class AddressBook {
 	private void getUserChoice() {
 		boolean isTerminate = false;
 		while (!isTerminate) {
-			System.out.println("1:Adding new person \n" + "2:Print address book \n" + "3:Exit");
+			System.out.println("1:Adding new person \n" + "2:Print address book \n" + "3:Update the person details \n "
+					+ "4:Delete the person \n" + "5:Exit");
 			int option = scanner.nextInt();
 			switch (option) {
 			case 1:
@@ -124,6 +135,12 @@ public class AddressBook {
 				break;
 
 			case 3:
+				book.updateContact();
+				break;
+			case 4:
+				book.deletePerson();
+				break;
+			case 5:
 				isTerminate = true;
 				break;
 			default:
